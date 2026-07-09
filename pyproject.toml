@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "search-agent"
+version = "0.1.0"
+description = "Self-contained SearXNG search retrieval subgraph for LangGraph"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph",
+    "langchain",
+    "langchain-openai",
+    "jinja2",
+    "requests",
+    "ddgs",
+    "python-dotenv",
+    "langfuse",
+    "sentence-transformers",
+]
+
+[project.optional-dependencies]
+# Test/dev tooling.
+dev = ["pytest", "pytest-asyncio"]
+
+# The package root *is* the project directory: map package `search_agent` to ".".
+[tool.setuptools]
+packages = ["search_agent", "search_agent.providers", "search_agent.edre"]
+
+[tool.setuptools.package-dir]
+"search_agent" = "."
+"search_agent.providers" = "providers"
+"search_agent.edre" = "edre"
+
+[tool.pytest.ini_options]
+# Use importlib mode so tests import the installed package rather than relying
+# on sys.path injection.
+addopts = "--import-mode=importlib"
+testpaths = ["tests"]
