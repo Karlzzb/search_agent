@@ -1,0 +1,61 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Packaging / build artifacts
+build/
+dist/
+*.egg
+*.egg-info/
+.eggs/
+wheels/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Testing / coverage ----
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.cache/
+coverage.xml
+*.cover
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+
+# ---- Secrets & local config ----
+# .env carries live LLM / SearXNG / Langfuse credentials — never commit it.
+.env
+.env.*
+!.env.example
+
+# ---- Model / HF caches (sentence-transformers cross-encoder) ----
+.cache/huggingface/
+models/
+
+# ---- Editors / IDEs ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---- Agent / tooling local state ----
+.claude/
+.aider*
+
+# ---- OS cruft ----
+.DS_Store
+Thumbs.db
