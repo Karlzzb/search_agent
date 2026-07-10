@@ -60,10 +60,21 @@ def main() -> None:
         from langfuse import get_client
 
         client = get_client()
-        with client.start_as_current_observation(name="search_agent_e2e", as_type="span"):
-            out = asyncio.run(_run())
-            trace_url = client.get_trace_url()
-        client.flush()
+        try:
+            with client.start_as_current_observation(name="search_agent_e2e", as_type="span"):
+                out = asyncio.run(_run())
+                trace_url = client.get_trace_url()
+        except Exception as exc:  # Langfuse host unreachable -> degrade, don't crash.
+            print(
+                f"[langfuse] tracing unavailable ({type(exc).__name__}); "
+                "result printed below untraced."
+            )
+            if "out" not in locals():
+                out = asyncio.run(_run())
+        try:
+            client.flush()
+        except Exception:
+            pass
     else:
         out = asyncio.run(_run())
 
